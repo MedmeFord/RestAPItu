@@ -10,7 +10,7 @@ var _ handlers.Handler = &handler{}
 
 const (
 	usersURL = "/users"
-	userURL  = "/user/:uuid"
+	userURL  = "/users/:uuid"
 )
 
 type handler struct {
