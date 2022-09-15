@@ -9,7 +9,7 @@ import (
 var _ handlers.Handler = &handler{}
 
 const (
-	usersURL = "/user"
+	usersURL = "/users"
 	userURL  = "/user/:uuid"
 )
 
