@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/MedmeFord/RestAPItu/internal/user"
 	"github.com/julienschmidt/httprouter"
 	"log"
 	"net"
@@ -15,16 +16,22 @@ func IndexHundler(w http.ResponseWriter, r *http.Request, params httprouter.Para
 }
 
 func main() {
+	log.Println("create router")
 	router := httprouter.New()
-	router.GET("/:name", IndexHundler)
 
-	fmt.Println("Starting server...")
+	log.Println("register user handler")
+	handler := user.NewHandler()
+	handler.Register(router)
 
+	start(router)
+}
+
+func start(router *httprouter.Router) {
 	listener, err := net.Listen("tcp", "127.0.0.1:1234")
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("Sucess")
+
 	server := &http.Server{
 		Handler:      router,
 		WriteTimeout: 15 * time.Second,
@@ -32,5 +39,4 @@ func main() {
 	}
 
 	log.Fatalln(server.Serve(listener))
-
 }

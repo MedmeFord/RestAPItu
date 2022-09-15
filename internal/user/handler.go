@@ -1,9 +1,12 @@
 package user
 
 import (
+	"github.com/MedmeFord/RestAPItu/internal/handlers"
 	"github.com/julienschmidt/httprouter"
 	"net/http"
 )
+
+var _ handlers.Handler = &handler{}
 
 const (
 	usersURL = "/user"
@@ -11,6 +14,10 @@ const (
 )
 
 type handler struct {
+}
+
+func NewHandler() handlers.Handler {
+	return &handler{}
 }
 
 func (h *handler) Register(router *httprouter.Router) {
