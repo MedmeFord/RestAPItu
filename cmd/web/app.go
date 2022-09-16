@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/MedmeFord/RestAPItu/internal/user"
+	"github.com/MedmeFord/RestAPItu/pkg/logging"
 	"github.com/julienschmidt/httprouter"
-	"log"
 	"net"
 	"net/http"
 	"time"
@@ -16,10 +16,12 @@ func IndexHundler(w http.ResponseWriter, r *http.Request, params httprouter.Para
 }
 
 func main() {
-	log.Println("create router")
+	logger := logging.GetLogger()
+
+	logger.Info("create router")
 	router := httprouter.New()
 
-	log.Println("register user handler")
+	logger.Info("register user handler")
 	handler := user.NewHandler()
 	handler.Register(router)
 
@@ -27,7 +29,8 @@ func main() {
 }
 
 func start(router *httprouter.Router) {
-	log.Println("start application")
+	logger := logging.GetLogger()
+	logger.Info("start application")
 
 	listener, err := net.Listen("tcp", ":1234")
 	if err != nil {
@@ -40,6 +43,6 @@ func start(router *httprouter.Router) {
 		ReadTimeout:  15 * time.Second,
 	}
 
-	log.Println("server is listening port 0.0.0.0:1234")
-	log.Fatalln(server.Serve(listener))
+	logger.Info("server is listening port 0.0.0.0:1234")
+	logger.Fatal(server.Serve(listener))
 }
