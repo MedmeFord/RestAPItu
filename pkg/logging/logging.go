@@ -36,12 +36,12 @@ type Logger struct {
 	*logrus.Entry
 }
 
-func GetLogger() Logger {
-	return Logger{e}
+func GetLogger() *Logger {
+	return &Logger{e}
 }
 
-func (l *Logger) GetLoggerWithField(k string, v interface{}) Logger {
-	return Logger{l.WithField(k, v)}
+func (l *Logger) GetLoggerWithField(k string, v interface{}) *Logger {
+	return &Logger{l.WithField(k, v)}
 }
 
 func init() {
@@ -56,12 +56,12 @@ func init() {
 		FullTimestamp: true,
 	}
 
-	err := os.MkdirAll("logging/logs", 6640) // создает папку
+	err := os.MkdirAll("logs", 6640) // создает папку
 	if err != nil {
 		panic(err)
 	}
 
-	allFile, err := os.OpenFile("logging/logs/all.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 6640) // открывает и записывает
+	allFile, err := os.OpenFile("logs/all.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 6640) // открывает и записывает
 	if err != nil {
 		panic(err)
 	}
