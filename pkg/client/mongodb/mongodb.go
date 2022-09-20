@@ -39,7 +39,6 @@ func NewClient(ctx context.Context, host, port, username, password, database, au
 	}
 
 	return client.Database(database), nil
-	// Ping
 
 	return
 }

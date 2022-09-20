@@ -43,7 +43,7 @@ func (d *db) FindOne(ctx context.Context, id string) (u user.User, err error) {
 		// TODO 404
 		return u, fmt.Errorf("failed to find one user by id: %s due to error: %v", id, err)
 	}
-	if err = result.Decode(&u, ); err != nil {
+	if err = result.Decode(&u); err != nil {
 		return u, fmt.Errorf("failed to decode user(%s) from DB due to error: %v", id, err)
 	}
 
@@ -51,12 +51,43 @@ func (d *db) FindOne(ctx context.Context, id string) (u user.User, err error) {
 }
 
 func (d *db) Update(ctx context.Context, user user.User) error {
-	// TODO implement me
-	panic("implement me")
+	objectID, err := primitive.ObjectIDFromHex(user.ID) // -- Забираем айди и этот айди конвертируем из Hex в ojbjectID
+	if err != nil {
+		return fmt.Errorf("failed to conver to userID to ObjectId. Id=%s", user.ID)
+	}
+
+	filter := bson.M{"_id": objectID} // bson.M"{полеЭ: к чему равно} -- ищем определленого пользователя с определенныи айди
+
+	userBytes, err := bson.Marshal(user)
+	if err != nil {
+		return fmt.Errorf("failed to marshal user. error: %v")
+	}
+
+	var updateUserObj bson.M // mongoDB принимает формат bson.M. Нам надо преоброзовать user байты в формат json
+	err = bson.Unmarshal(userBytes, &updateUserObj)
+	if err != nil {
+		return fmt.Errorf("fsiled to unmarshal user bytes. eror: %v", err)
+	}
+
+	delete(updateUserObj, "_id")
+
+	update := bson.M{
+		"$set": updateUserObj,
+	}
+
+	result, err := d.collection.UpdateOne(ctx, filter, update)
+	if err != nil {
+		return fmt.Errorf("failed to execute user query")
+	}
+	if result.MatchedCount == 0 { // MatchCount - проверяет наличие сущности. mongoDB сначала ищет сущность которую нужно обновить, а потом обновляет
+		// TODO ErorEntity not found 404
+		return fmt.Errorf("not found")
+	}
+
 }
 
 func (d *db) Delete(ctx context.Context, id string) error {
-	// TODO implement me
+
 	panic("implement me")
 }
 
