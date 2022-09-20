@@ -1,7 +1,7 @@
 package user
 
 import (
-	"gihub.com/MedmeFord/RestAPItu/internal/handlers"
+	"github.com/MedmeFord/RestAPItu/internal/handlers"
 	"github.com/MedmeFord/RestAPItu/pkg/logging"
 	"github.com/julienschmidt/httprouter"
 	"net/http"
