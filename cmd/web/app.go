@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/MedmeFord/RestAPItu/internal/config"
-	"github.com/MedmeFord/RestAPItu/internal/user"
+	"gihub.com/MedmeFord/RestAPItu/internal/config"
+	"gihub.com/MedmeFord/RestAPItu/internal/user"
 	"github.com/MedmeFord/RestAPItu/pkg/logging"
 	"github.com/julienschmidt/httprouter"
 	"net"
