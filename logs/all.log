@@ -335,3 +335,5 @@ time="2022-09-18T15:33:12+03:00" level=info msg="listen unix socket" func="main.
 time="2022-09-18T15:33:12+03:00" level=info msg="server is listening unix socket: /Users/parkinso/Desktop/RestAPItu/build/app.sock" func="main.start()" file="app.go:54"
 time="2022-09-22T19:32:47+03:00" level=info msg="create router" func="main.main()" file="app.go:28"
 time="2022-09-22T19:32:47+03:00" level=info msg="read application configuration" func="github.com/MedmeFord/RestAPItu/internal/config.GetConfig.func1()" file="config.go:33"
+time="2022-09-22T19:34:52+03:00" level=info msg="create router" func="main.main()" file="app.go:28"
+time="2022-09-22T19:34:52+03:00" level=info msg="read application configuration" func="github.com/MedmeFord/RestAPItu/internal/config.GetConfig.func1()" file="config.go:33"

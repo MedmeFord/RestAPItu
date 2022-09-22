@@ -3,7 +3,7 @@
 is_debug: true
 listen:
   type: sock
-mogodb:
+mongodb:
   host: localhost
   port: 27017
   database: user-service
