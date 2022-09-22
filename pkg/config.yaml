@@ -3,3 +3,11 @@
 is_debug: true
 listen:
   type: sock
+mogodb:
+  host: localhost
+  port: 27017
+  database: user-service
+  auth_db:
+  username:
+  password:
+  collections: users

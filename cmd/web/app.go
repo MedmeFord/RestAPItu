@@ -1,9 +1,12 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"github.com/MedmeFord/RestAPItu/internal/config"
 	"github.com/MedmeFord/RestAPItu/internal/user"
+	"github.com/MedmeFord/RestAPItu/internal/user/db"
+	"github.com/MedmeFord/RestAPItu/pkg/client/mongodb"
 
 	"github.com/MedmeFord/RestAPItu/pkg/logging"
 	"github.com/julienschmidt/httprouter"
@@ -22,11 +25,29 @@ func IndexHundler(w http.ResponseWriter, r *http.Request, params httprouter.Para
 
 func main() {
 	logger := logging.GetLogger()
-
 	logger.Info("create router")
 	router := httprouter.New()
 
 	cfg := config.GetConfig()
+
+	cfgMongo := cfg.MongoDB
+	mongoDBClient, err := mongodb.NewClient(context.Background(), cfgMongo.Host, cfgMongo.Port, cfgMongo.Username, cfgMongo.Password, cfgMongo.Database, cfgMongo.Auth_db)
+	if err != nil {
+		panic(err)
+	}
+	storage := db.NewStorage(mongoDBClient, cfg.MongoDB.Collections, logger)
+
+	user1 := user.User{
+		ID:           "",
+		Email:        "medmezt@gmail.com",
+		Username:     "Medme",
+		PasswordHash: "12345",
+	}
+	user1ID, err := storage.Create(context.Background(), user1)
+	if err != nil {
+		panic(err)
+	}
+	logger.Info(user1ID)
 
 	logger.Info("register user handler")
 	handler := user.NewHandler(logger)
