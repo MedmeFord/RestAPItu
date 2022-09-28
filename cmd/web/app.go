@@ -7,7 +7,6 @@ import (
 	"github.com/MedmeFord/RestAPItu/internal/user"
 	"github.com/MedmeFord/RestAPItu/internal/user/db"
 	"github.com/MedmeFord/RestAPItu/pkg/client/mongodb"
-
 	"github.com/MedmeFord/RestAPItu/pkg/logging"
 	"github.com/julienschmidt/httprouter"
 	"net"

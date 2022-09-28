@@ -1,0 +1,4 @@
+time="2022-09-28T21:38:21+05:00" level=info msg="create router" func="main.main()" file="app.go:27"
+time="2022-09-28T21:38:21+05:00" level=info msg="read application configuration" func="github.com/MedmeFord/RestAPItu/internal/config.GetConfig.func1()" file="config.go:33"
+time="2022-09-28T21:38:21+05:00" level=info func="github.com/MedmeFord/RestAPItu/internal/config.GetConfig.func1()" file="config.go:38"
+time="2022-09-28T21:38:21+05:00" level=fatal msg="open ./pkg/config.yaml: no such file or directory" func="github.com/MedmeFord/RestAPItu/internal/config.GetConfig.func1()" file="config.go:39"
